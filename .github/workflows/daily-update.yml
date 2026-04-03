@@ -1,12 +1,10 @@
-name: Daily Project Improvement
+- name: Commit and push changes
+  run: |
+    git config user.name "github-actions[bot]"
+    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-on:
-  workflow_dispatch:
+    TASK=$(python -c "import json; print(json.load(open('project_state.json'))['tasks'][json.load(open('project_state.json'))['task_index']-1])")
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Print test
-        run: echo "Workflow is working"
+    git add .
+    git diff --cached --quiet || git commit -m "$TASK"
+    git push

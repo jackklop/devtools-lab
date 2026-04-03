@@ -26,3 +26,7 @@ api-health-checker/
 ├── requirements.txt
 └── README.md
 ```
+
+## Progress Log
+
+- 2026-04-02: Add config file support
