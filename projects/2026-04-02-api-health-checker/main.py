@@ -1,19 +1,21 @@
+import json
 import requests
 import time
+from pathlib import Path
 
-URLS = [
-    "https://api.github.com",
-    "https://jsonplaceholder.typicode.com/posts",
-    "https://httpbin.org/status/200",
-]
-
-TIMEOUT_SECONDS = 5
+CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
+RESULTS_PATH = Path(__file__).resolve().parent / "results.json"
 
 
-def check_url(url):
+def load_config():
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def check_url(url, timeout_seconds):
     try:
         start = time.time()
-        response = requests.get(url, timeout=TIMEOUT_SECONDS)
+        response = requests.get(url, timeout=timeout_seconds)
         latency_ms = round((time.time() - start) * 1000, 2)
 
         return {
@@ -23,7 +25,6 @@ def check_url(url):
             "success": 200 <= response.status_code < 400,
             "error": None,
         }
-
     except requests.exceptions.Timeout:
         return {
             "url": url,
@@ -32,7 +33,6 @@ def check_url(url):
             "success": False,
             "error": "Request timed out",
         }
-
     except requests.exceptions.RequestException as e:
         return {
             "url": url,
@@ -48,7 +48,6 @@ def print_results(results):
     print("-" * 60)
 
     success_count = 0
-
     for result in results:
         if result["success"]:
             success_count += 1
@@ -69,12 +68,15 @@ def print_results(results):
 
 
 def main():
-    results = []
+    config = load_config()
+    urls = config["urls"]
+    timeout_seconds = config.get("timeout_seconds", 5)
 
-    for url in URLS:
-        results.append(check_url(url))
-
+    results = [check_url(url, timeout_seconds) for url in urls]
     print_results(results)
+
+    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2)
 
 
 if __name__ == "__main__":

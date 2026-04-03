@@ -1,6 +1,6 @@
 {
   "current_project": "projects/2026-04-02-api-health-checker",
-  "task_index": 1,
+  "task_index": 2,
   "tasks": [
     "Add config file support",
     "Add JSON output",
@@ -25,12 +25,14 @@
     "Add threshold warnings",
     "Add endpoint grouping",
     "Add markdown report output",
-    "Add Makefile or run script",
     "Add project roadmap section",
     "Add changelog",
     "Add module docstrings",
     "Add package structure",
     "Add basic test coverage",
-    "Polish README and examples"
-  ]
+    "Polish README and examples",
+    "Add usage examples for interview portfolio polish"
+  ],
+  "last_task": "Add JSON output",
+  "last_commit_message": "json-output"
 }

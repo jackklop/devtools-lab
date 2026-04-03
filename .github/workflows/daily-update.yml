@@ -1,10 +1,58 @@
-- name: Commit and push changes
-  run: |
-    git config user.name "github-actions[bot]"
-    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+name: Daily Project Improvement
 
-    TASK=$(python -c "import json; print(json.load(open('project_state.json'))['tasks'][json.load(open('project_state.json'))['task_index']-1])")
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 14 * * *"
 
-    git add .
-    git diff --cached --quiet || git commit -m "$TASK"
-    git push
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  improve-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies for project
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f "projects/2026-04-02-api-health-checker/requirements.txt" ]; then
+            pip install -r projects/2026-04-02-api-health-checker/requirements.txt
+          fi
+
+      - name: Run improvement script
+        run: python scripts/daily_improve.py
+
+      - name: Validate project runs
+        working-directory: projects/2026-04-02-api-health-checker
+        run: python main.py
+
+      - name: Read commit message from state
+        id: state
+        run: |
+          echo "commit_message=$(python -c "import json; print(json.load(open('project_state.json', encoding='utf-8')).get('last_commit_message', 'project-update'))")" >> $GITHUB_OUTPUT
+          echo "task_title=$(python -c "import json; print(json.load(open('project_state.json', encoding='utf-8')).get('last_task', 'Project update'))")" >> $GITHUB_OUTPUT
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: ${{ steps.state.outputs.commit_message }}
+          title: ${{ steps.state.outputs.task_title }}
+          body: |
+            Automated project improvement for devtools-lab.
+
+            This PR includes:
+            - one scoped project improvement
+            - matching README updates
+            - a successful validation run
+          branch: automation/${{ steps.state.outputs.commit_message }}
+          delete-branch: true

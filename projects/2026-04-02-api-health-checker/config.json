@@ -1,0 +1,8 @@
+{
+  "urls": [
+    "https://api.github.com",
+    "https://jsonplaceholder.typicode.com/posts",
+    "https://httpbin.org/status/200"
+  ],
+  "timeout_seconds": 5
+}

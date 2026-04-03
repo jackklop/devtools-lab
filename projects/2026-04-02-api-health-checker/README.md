@@ -30,3 +30,10 @@ api-health-checker/
 ## Progress Log
 
 - 2026-04-02: Add config file support
+## Configuration
+The tool now supports a `config.json` file for endpoints and timeout settings.
+
+## Output
+The script now exports health check results to `results.json`.
+
+- 2026-04-02: Add JSON output
