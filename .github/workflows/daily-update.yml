@@ -1,33 +1,12 @@
 name: Daily Project Improvement
 
 on:
-  schedule:
-    - cron: "0 14 * * *" # runs daily
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  improve-project:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Run script
-        run: echo "Automation working"
-
-      - name: Commit (test)
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "bot@github.com"
-          git add .
-          git commit -m "test automation" || exit 0
-          git push
+      - name: Print test
+        run: echo "Workflow is working"
