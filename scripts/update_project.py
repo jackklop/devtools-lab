@@ -1,72 +1,106 @@
 import os
+import random
 from datetime import datetime
 
 BASE_DIR = "projects"
 
+PROJECT_TYPES = [
+    "api-health-checker",
+    "log-analyzer",
+    "file-organizer"
+]
+
 def create_project():
     date_str = datetime.now().strftime("%Y-%m-%d")
-    project_name = f"{date_str}-api-health-checker"
+    project_type = random.choice(PROJECT_TYPES)
+    project_name = f"{date_str}-{project_type}"
     project_path = os.path.join(BASE_DIR, project_name)
 
     if os.path.exists(project_path):
-        print("Project already exists for today.")
+        print("Project already exists today.")
         return
 
     os.makedirs(project_path)
 
-    # main.py
-    main_code = """import requests
-import time
+    if project_type == "api-health-checker":
+        create_api_checker(project_path)
 
-URLS = [
-    "https://api.github.com",
-    "https://jsonplaceholder.typicode.com/posts"
-]
+    elif project_type == "log-analyzer":
+        create_log_analyzer(project_path)
 
-def check_health():
-    for url in URLS:
-        try:
-            start = time.time()
-            response = requests.get(url)
-            latency = round((time.time() - start) * 1000, 2)
+    elif project_type == "file-organizer":
+        create_file_organizer(project_path)
 
-            print(f"{url} -> {response.status_code} ({latency} ms)")
-        except Exception as e:
-            print(f"{url} -> ERROR: {e}")
+    print("Created:", project_name)
 
-if __name__ == "__main__":
-    check_health()
+
+# ---------------- PROJECT TYPES ---------------- #
+
+def create_api_checker(path):
+    main = """import requests
+
+urls = ["https://api.github.com"]
+
+for url in urls:
+    try:
+        res = requests.get(url)
+        print(url, res.status_code)
+    except Exception as e:
+        print("Error:", e)
 """
+    write_files(path, main, "requests\n", "API Health Checker tool")
 
-    # README (no fancy formatting to avoid errors)
-    readme = """# API Health Checker
 
-A simple tool to monitor API availability and latency.
+def create_log_analyzer(path):
+    main = """from collections import Counter
 
-## Features
-- Checks HTTP status codes
-- Measures response latency
+with open("sample.log", "r") as f:
+    lines = f.readlines()
 
-## How to run
-pip install -r requirements.txt
+errors = [line for line in lines if "ERROR" in line]
+
+print("Error count:", len(errors))
+"""
+    write_files(path, main, "", "Simple log analyzer tool")
+
+
+def create_file_organizer(path):
+    main = """import os
+import shutil
+
+source = "files"
+
+for file in os.listdir(source):
+    ext = file.split(".")[-1]
+    os.makedirs(ext, exist_ok=True)
+    shutil.move(os.path.join(source, file), os.path.join(ext, file))
+"""
+    write_files(path, main, "", "File organizer by extension")
+
+
+# ---------------- HELPER ---------------- #
+
+def write_files(path, main_code, requirements, description):
+    readme = f"""# {description}
+
+## Description
+A useful utility tool.
+
+## Usage
 python main.py
 """
 
-    # requirements.txt
-    requirements = "requests\n"
-
-    # write files
-    with open(os.path.join(project_path, "main.py"), "w") as f:
+    with open(os.path.join(path, "main.py"), "w") as f:
         f.write(main_code)
 
-    with open(os.path.join(project_path, "README.md"), "w") as f:
+    with open(os.path.join(path, "README.md"), "w") as f:
         f.write(readme)
 
-    with open(os.path.join(project_path, "requirements.txt"), "w") as f:
+    with open(os.path.join(path, "requirements.txt"), "w") as f:
         f.write(requirements)
 
-    print("Project created:", project_name)
 
+# ---------------- RUN ---------------- #
 
 if __name__ == "__main__":
     create_project()
