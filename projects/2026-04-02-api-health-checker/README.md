@@ -37,3 +37,4 @@ The tool now supports a `config.json` file for endpoints and timeout settings.
 The script now exports health check results to `results.json`.
 
 - 2026-04-02: Add JSON output
+- 2026-04-03: Add retry logic
