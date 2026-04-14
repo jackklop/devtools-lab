@@ -41,3 +41,4 @@ The script now exports health check results to `results.json`.
 - 2026-04-04: Add CLI arguments
 - 2026-04-06: Add logging to file
 - 2026-04-07: Improve README with architecture section
+- 2026-04-14: Add CSV export
