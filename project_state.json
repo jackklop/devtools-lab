@@ -1,6 +1,6 @@
 {
   "current_project": "projects/2026-04-02-api-health-checker",
-  "task_index": 6,
+  "task_index": 7,
   "tasks": [
     "Add config file support",
     "Add JSON output",
@@ -33,6 +33,6 @@
     "Polish README and examples",
     "Add usage examples for interview portfolio polish"
   ],
-  "last_task": "Improve README with architecture section",
-  "last_commit_message": "readme-with-architecture-section"
+  "last_task": "Add CSV export",
+  "last_commit_message": "csv-export"
 }
