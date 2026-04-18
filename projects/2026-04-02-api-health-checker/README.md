@@ -43,3 +43,4 @@ The script now exports health check results to `results.json`.
 - 2026-04-07: Improve README with architecture section
 - 2026-04-14: Add CSV export
 - 2026-04-15: Add environment variable support
+- 2026-04-18: Add simple tests
