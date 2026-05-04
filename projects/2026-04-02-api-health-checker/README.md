@@ -46,3 +46,4 @@ The script now exports health check results to `results.json`.
 - 2026-04-18: Add simple tests
 - 2026-04-30: Refactor health check logic into functions
 - 2026-05-02: Add status summary by endpoint
+- 2026-05-03: Add timeout config
