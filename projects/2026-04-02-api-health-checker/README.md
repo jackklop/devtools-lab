@@ -49,3 +49,4 @@ The script now exports health check results to `results.json`.
 - 2026-05-03: Add timeout config
 - 2026-05-11: Add custom headers support
 - 2026-05-13: Add user agent support
+- 2026-05-16: Add basic concurrency

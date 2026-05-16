@@ -1,6 +1,6 @@
 {
   "current_project": "projects/2026-04-02-api-health-checker",
-  "task_index": 14,
+  "task_index": 15,
   "tasks": [
     "Add config file support",
     "Add JSON output",
@@ -33,6 +33,6 @@
     "Polish README and examples",
     "Add usage examples for interview portfolio polish"
   ],
-  "last_task": "Add user agent support",
-  "last_commit_message": "user-agent-support"
+  "last_task": "Add basic concurrency",
+  "last_commit_message": "basic-concurrency"
 }
