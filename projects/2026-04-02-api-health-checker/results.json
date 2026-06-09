@@ -2,21 +2,21 @@
   {
     "url": "https://api.github.com",
     "status": 200,
-    "latency_ms": 32.09,
+    "latency_ms": 50.77,
     "success": true,
     "error": null
   },
   {
     "url": "https://jsonplaceholder.typicode.com/posts",
     "status": 200,
-    "latency_ms": 38.36,
+    "latency_ms": 100.81,
     "success": true,
     "error": null
   },
   {
     "url": "https://httpbin.org/status/200",
     "status": 200,
-    "latency_ms": 362.15,
+    "latency_ms": 182.1,
     "success": true,
     "error": null
   }
