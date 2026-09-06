@@ -52,3 +52,4 @@ The script now exports health check results to `results.json`.
 - 2026-05-16: Add basic concurrency
 - 2026-06-09: Add sample config file
 - 2026-07-21: Add output formatting cleanup
+- 2026-09-06: Improve README examples
