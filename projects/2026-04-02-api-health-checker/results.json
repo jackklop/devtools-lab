@@ -1,23 +1,23 @@
 [
   {
     "url": "https://api.github.com",
-    "status": 200,
-    "latency_ms": 83.22,
-    "success": true,
-    "error": null
+    "status": null,
+    "latency_ms": null,
+    "success": false,
+    "error": "Request timed out"
   },
   {
     "url": "https://jsonplaceholder.typicode.com/posts",
     "status": 200,
-    "latency_ms": 57.77,
+    "latency_ms": 54.08,
     "success": true,
     "error": null
   },
   {
     "url": "https://httpbin.org/status/200",
-    "status": 503,
-    "latency_ms": 300.75,
-    "success": false,
+    "status": 200,
+    "latency_ms": 290.62,
+    "success": true,
     "error": null
   }
 ]
